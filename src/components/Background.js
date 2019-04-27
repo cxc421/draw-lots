@@ -40,13 +40,7 @@ const useLazyImgSrc = ({ bigSrc, smallSrc }) => {
   useEffect(() => {
     const img = new Image();
     img.onload = function() {
-      const canvas = document.createElement('canvas');
-      canvas.width = this.naturalWidth;
-      canvas.height = this.naturalHeight;
-
-      canvas.getContext('2d').drawImage(this, 0, 0);
-
-      setSrc(canvas.toDataURL('image/png'));
+      setSrc(bigSrc);
     };
     img.src = bigSrc;
   }, [bigSrc]);
