@@ -13,6 +13,7 @@ body,
   font-family: 'Noto Serif TC',
     serif;
   font-weight: 900;
+  overflow: hidden;
 }
 
 h1,

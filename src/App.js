@@ -9,6 +9,7 @@ import React, { useState } from 'react';
 
 import Background from './components/Background';
 import LandingPage from './pages/LandingPage';
+import ResultPage from './pages/ResultPage';
 
 const PAGE = {
   LANDING: 'landing-page',
@@ -16,15 +17,17 @@ const PAGE = {
 };
 
 function App() {
-  const [page] = useState(PAGE.LANDING);
-  const backgroundStyle = {
-    height: page === PAGE.LANDING ? 'calc(100% - 128px)' : '100%'
-  };
+  // const [page, setPage] = useState(PAGE.LANDING);
+  const [page, setPage] = useState(PAGE.RESULT);
 
   return (
     <>
-      <Background style={backgroundStyle} />
-      <LandingPage />
+      <Background isLandingBg={page === PAGE.LANDING} />
+      <LandingPage
+        show={page === PAGE.LANDING}
+        toNextPage={() => setPage(PAGE.RESULT)}
+      />
+      <ResultPage show={page === PAGE.RESULT} />
     </>
   );
 }

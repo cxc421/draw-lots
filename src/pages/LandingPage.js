@@ -13,6 +13,10 @@ const Wrapper = styled.div`
   padding-right: 20px;
   display: flex;
   justify-content: space-between;
+
+  opacity: ${props => (props.show ? '1' : '0')};
+  visibility: ${props => (props.show ? 'visible' : 'hidden')};
+  transition: opacity 500ms, visibility 500ms;
 `;
 
 const RightTextBlock = styled.div`
@@ -130,11 +134,11 @@ const StartBtn = styled.div`
   font-style: ${props => (props.disabled ? 'italic' : 'none')};
 `;
 
-const LandingPage = () => {
+const LandingPage = ({ show, toNextPage }) => {
   const [selectBtn, setSelectBtn] = useState(-1);
 
   return (
-    <Wrapper>
+    <Wrapper show={show}>
       <LeftTextBlock>
         <SubTitle>求籤步驟</SubTitle>
         <SubBlock>
@@ -166,7 +170,9 @@ const LandingPage = () => {
           </BtnBlock>
         </SubBlock>
         <StartBtnBlock>
-          <StartBtn disabled={selectBtn < 0}>開始求籤</StartBtn>
+          <StartBtn disabled={selectBtn < 0} onClick={toNextPage}>
+            開始求籤
+          </StartBtn>
         </StartBtnBlock>
       </LeftTextBlock>
       <RightTextBlock>
