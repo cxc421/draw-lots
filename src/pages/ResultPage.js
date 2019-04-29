@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { CSSTransition } from 'react-transition-group';
 
+import bellSoundSrc from '../assets/bell.mp3';
+
 const cssTransName = 'css-trans';
 
 const Wrapper = styled.div`
@@ -295,9 +297,25 @@ function useLucky(show) {
   };
 }
 
+const bellSound = new Audio(bellSoundSrc);
+
 const ResultPage = ({ show, toNextPage }) => {
   const lucky = useLucky(show);
   const titleColor = lucky.isLucky ? 'yellow' : 'red';
+
+  useEffect(() => {
+    let key = null;
+    if (show) {
+      key = setTimeout(() => {
+        bellSound.play();
+      }, 1000);
+    } else {
+      bellSound.load();
+    }
+    return () => {
+      clearTimeout(key);
+    };
+  }, [show]);
 
   return (
     <CSSTransition
