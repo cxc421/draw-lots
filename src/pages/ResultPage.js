@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { CSSTransition } from 'react-transition-group';
 
@@ -40,15 +40,30 @@ const showUpAnimate = keyframes`
    }
 `;
 
-const colorYellowAnimate = keyframes`
+// const colorYellowAnimate = keyframes`
+//   0% {
+//     color: white;
+//   }
+//   40% {
+//     color: yellow;
+//   }
+//   70% {
+//     color: yellow;
+//   }
+//   100% {
+//     color: white;
+//   }
+// `;
+
+const colorYellowAnimate = props => keyframes`
   0% {
     color: white;
   }
   40% {
-    color: yellow;
+    color: ${props.color};
   }
   70% {
-    color: yellow;
+    color: ${props.color};
   }
   100% {
     color: white;
@@ -252,7 +267,38 @@ const ReplayButton = styled.div`
   }
 `;
 
+// function usePrevious(value) {
+//   const ref = useRef();
+//   useEffect(() => {
+//     ref.current = value;
+//   });
+//   return ref.current;
+// }
+
+function getRndInteger(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
+const makeLucky = () => getRndInteger(0, 6);
+
+function useLucky(show) {
+  const [lucky, setLucky] = useState(makeLucky());
+  const luckMap = ['大凶', '中兇', '小兇', '小吉', '中吉', '大吉'];
+
+  useEffect(() => {
+    setLucky(makeLucky());
+  }, [show]);
+
+  return {
+    text: luckMap[lucky],
+    isLucky: lucky >= 3
+  };
+}
+
 const ResultPage = ({ show, toNextPage }) => {
+  const lucky = useLucky(show);
+  const titleColor = lucky.isLucky ? 'yellow' : 'red';
+
   return (
     <CSSTransition
       in={show}
@@ -262,10 +308,10 @@ const ResultPage = ({ show, toNextPage }) => {
       unmountOnExit={true}
     >
       <Wrapper show={show}>
-        <TitleBlock>
+        <TitleBlock color={titleColor}>
           <TitleNumber>第四十八籤</TitleNumber>
           <TitleDate />
-          <TitleResult>中吉</TitleResult>
+          <TitleResult>{lucky.text}</TitleResult>
         </TitleBlock>
         <MainBlock>
           <MainBlockLeft>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { css as _css } from 'styled-components';
 import { CSSTransition } from 'react-transition-group';
 
@@ -150,6 +150,12 @@ const StartBtn = styled.div`
 
 const LandingPage = ({ show, toNextPage }) => {
   const [selectBtn, setSelectBtn] = useState(-1);
+
+  useEffect(() => {
+    if (show) {
+      setSelectBtn(-1);
+    }
+  }, [show]);
 
   return (
     <CSSTransition
