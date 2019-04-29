@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import styled, { css as _css } from 'styled-components';
+import { CSSTransition } from 'react-transition-group';
+
+const cssTransName = 'css-trans';
 
 const Wrapper = styled.div`
   position: absolute;
@@ -14,9 +17,20 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
 
-  opacity: ${props => (props.show ? '1' : '0')};
-  visibility: ${props => (props.show ? 'visible' : 'hidden')};
-  transition: opacity 500ms, visibility 500ms;
+  transition: opacity 500ms;
+
+  &.${cssTransName + '-enter'} {
+    opacity: 0;
+  }
+  &.${cssTransName + '-enter-active'} {
+    opacity: 1;
+  }
+  &.${cssTransName + '-exit'} {
+    opacity: 1;
+  }
+  &.${cssTransName + '-exit-active'} {
+    opacity: 0;
+  }
 `;
 
 const RightTextBlock = styled.div`
@@ -138,47 +152,73 @@ const LandingPage = ({ show, toNextPage }) => {
   const [selectBtn, setSelectBtn] = useState(-1);
 
   return (
-    <Wrapper show={show}>
-      <LeftTextBlock>
-        <SubTitle>求籤步驟</SubTitle>
-        <SubBlock>
-          <Pg>① 請虔誠地在心中默念您的姓名、出生年月日、住址</Pg>
-          <Pg>② 選擇欲請教的求籤類別後，誠心地在心中詳細說明</Pg>
-          <Pg>③ 說明完後即可點選「開始求籤」按鈕進行線上求籤</Pg>
-        </SubBlock>
-        <SubTitle>求籤類別</SubTitle>
-        <SubBlock>
-          <BtnBlock>
-            <BtnSmall select={selectBtn === 1} onClick={() => setSelectBtn(1)}>
-              網站上線
-            </BtnSmall>
-            <BtnSmall select={selectBtn === 2} onClick={() => setSelectBtn(2)}>
-              感情姻緣
-            </BtnSmall>
-            <BtnSmall select={selectBtn === 3} onClick={() => setSelectBtn(3)}>
-              事業工作
-            </BtnSmall>
-            <BtnSmall select={selectBtn === 4} onClick={() => setSelectBtn(4)}>
-              家庭生活
-            </BtnSmall>
-            <BtnSmall select={selectBtn === 5} onClick={() => setSelectBtn(5)}>
-              求財運勢
-            </BtnSmall>
-            <BtnSmall select={selectBtn === 6} onClick={() => setSelectBtn(6)}>
-              參選總統
-            </BtnSmall>
-          </BtnBlock>
-        </SubBlock>
-        <StartBtnBlock>
-          <StartBtn disabled={selectBtn < 0} onClick={toNextPage}>
-            開始求籤
-          </StartBtn>
-        </StartBtnBlock>
-      </LeftTextBlock>
-      <RightTextBlock>
-        <Title>線 上 求 籤 。</Title>
-      </RightTextBlock>
-    </Wrapper>
+    <CSSTransition
+      in={show}
+      classNames={cssTransName}
+      timeout={500}
+      mountOnEnter={true}
+      unmountOnExit={true}
+    >
+      <Wrapper>
+        <LeftTextBlock>
+          <SubTitle>求籤步驟</SubTitle>
+          <SubBlock>
+            <Pg>① 請虔誠地在心中默念您的姓名、出生年月日、住址</Pg>
+            <Pg>② 選擇欲請教的求籤類別後，誠心地在心中詳細說明</Pg>
+            <Pg>③ 說明完後即可點選「開始求籤」按鈕進行線上求籤</Pg>
+          </SubBlock>
+          <SubTitle>求籤類別</SubTitle>
+          <SubBlock>
+            <BtnBlock>
+              <BtnSmall
+                select={selectBtn === 1}
+                onClick={() => setSelectBtn(1)}
+              >
+                網站上線
+              </BtnSmall>
+              <BtnSmall
+                select={selectBtn === 2}
+                onClick={() => setSelectBtn(2)}
+              >
+                感情姻緣
+              </BtnSmall>
+              <BtnSmall
+                select={selectBtn === 3}
+                onClick={() => setSelectBtn(3)}
+              >
+                事業工作
+              </BtnSmall>
+              <BtnSmall
+                select={selectBtn === 4}
+                onClick={() => setSelectBtn(4)}
+              >
+                家庭生活
+              </BtnSmall>
+              <BtnSmall
+                select={selectBtn === 5}
+                onClick={() => setSelectBtn(5)}
+              >
+                求財運勢
+              </BtnSmall>
+              <BtnSmall
+                select={selectBtn === 6}
+                onClick={() => setSelectBtn(6)}
+              >
+                參選總統
+              </BtnSmall>
+            </BtnBlock>
+          </SubBlock>
+          <StartBtnBlock>
+            <StartBtn disabled={selectBtn < 0} onClick={toNextPage}>
+              開始求籤
+            </StartBtn>
+          </StartBtnBlock>
+        </LeftTextBlock>
+        <RightTextBlock>
+          <Title>線 上 求 籤 。</Title>
+        </RightTextBlock>
+      </Wrapper>
+    </CSSTransition>
   );
 };
 

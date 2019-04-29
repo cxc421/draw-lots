@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
-import styled, { css as _css } from 'styled-components';
+import React from 'react';
+import styled, { keyframes } from 'styled-components';
+import { CSSTransition } from 'react-transition-group';
 
-const STAGE = {
-  CENTER: 'stage-center',
-  DETAIL: 'stage-detail'
-};
+const cssTransName = 'css-trans';
 
 const Wrapper = styled.div`
   position: absolute;
@@ -15,160 +13,284 @@ const Wrapper = styled.div`
   width: 920px;
   max-width: 100%;
   /* background: pink; */
-  padding-left: 40px;
+  padding-right: 40px;
 
-  opacity: ${props => (props.show ? '1' : '0')};
-  visibility: ${props => (props.show ? 'visible' : 'hidden')};
-  transition: opacity 2s, visibility 2s;
+  transition: opacity 500ms;
+
+  &.${cssTransName + '-enter'} {
+    opacity: 0;
+  }
+  &.${cssTransName + '-enter-active'} {
+    opacity: 1;
+  }
+  &.${cssTransName + '-exit'} {
+    opacity: 1;
+  }
+  &.${cssTransName + '-exit-active'} {
+    opacity: 0;
+  }
+`;
+
+const showUpAnimate = keyframes`
+   from {
+     opacity: 0;
+   }
+   to {
+     opacity: 1;
+   }
+`;
+
+const colorYellowAnimate = keyframes`
+  0% {
+    color: white;
+  }
+  40% {
+    color: yellow;
+  }
+  70% {
+    color: yellow;
+  }
+  100% {
+    color: white;
+  }
+`;
+
+const titleBlockFlyAnimate = keyframes`
+  from {
+    top: 50%;
+    right: 50%;
+    height: 415px;
+    transform: translate(50%, -50%);
+  }
+  to {
+    top: 57px;
+    right: 0;
+    transform: translate(0, 0);
+  }
 `;
 
 const TitleBlock = styled.div`
   position: absolute;
-  /* background: green; */
   transition: all 1s;
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* display: none; */
 
-  ${props => {
-    if (props.stage === STAGE.DETAIL) {
-      return _css`
-        top: 57px;
-        right: 0;
-        transform: translate(0, 0);
-      `;
-    } else {
-      return _css`
-        top: 50%;
-        right: 50%;
-        height: 415px;
-        transform: translate(50%, -50%);
-      `;
-    }
-  }}
+  animation: ${showUpAnimate} 2s ease 2s 1 normal both,
+    ${colorYellowAnimate} 2.5s linear 1.5s 1 normal both,
+    ${titleBlockFlyAnimate} 1.5s ease 4s 1 normal both;
+`;
+
+const titleNumberFlyAnimate = keyframes`
+  from {
+    width: auto;
+    font-size: 24px;
+    line-height: 35px;
+    letter-spacing: 38px;
+    margin-right: -38px;
+  }
+  to {
+    width: 16px;
+    font-size: 16px;
+    line-height: 16px;
+    letter-spacing: 0px;
+    margin-right: 0px;
+  }
 `;
 
 const TitleNumber = styled.div`
-  color: white;
   font-weight: normal;
   font-family: 'Noto Sans TC', sans-serif;
   transition: all 1s;
   order: 1;
+  animation: ${titleNumberFlyAnimate} 1.5s ease 4s 1 normal both;
+`;
 
-  ${props => {
-    if (props.stage === STAGE.DETAIL) {
-      return _css`
-        width: 16px;
-        font-size: 16px;
-        line-height: 16px;
-        letter-spacing: 0px;
-        margin-right: 0px;
-      `;
-    } else {
-      return _css`
-        width: auto;
-        font-size: 24px;
-        line-height: 35px;
-        letter-spacing: 38px;
-        margin-right: -38px;
-      `;
-    }
-  }}
+const titleDateFlyAnimate = keyframes`
+  from {
+    top: 380px;
+    width: auto;
+    white-space: nowrap;
+    font-size: 24px;
+    line-height: 35px;
+    letter-spacing: 50px;
+    padding-left: 50px;
+  }
+  to {
+    top: 80px;
+    width: 16px;
+    font-size: 16px;
+    line-height: 16px;
+  }
+`;
+
+const titleDateTextAnimate = keyframes`
+  from {
+    content: '【戊辛】';
+  }
+  to {
+    content: '︻ 戊 辛 ︼ ';
+  }
 `;
 
 const TitleDate = styled.div`
-  color: white;
   font-weight: normal;
   font-family: 'Noto Sans TC', sans-serif;
   transition: all 1s;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  /* display: none; */
+  animation: ${titleDateFlyAnimate} 1.5s ease 4s 1 normal both;
+  &::before {
+    content: '【戊辛】';
+    display: block;
+    animation: ${titleDateTextAnimate} 1.5s ease 4s 1 normal both;
+  }
+`;
 
-  ${props => {
-    if (props.stage === STAGE.DETAIL) {
-      return _css`
-        // order: 2;
-        top: 80px;
-        width: 16px;
-        font-size: 16px;
-        line-height: 16px;
-      `;
-    } else {
-      return _css`
-        // order: 3;
-        top: 380px;
-        width: auto;
-        white-space: nowrap;
-        font-size: 24px;
-        line-height: 35px;
-        letter-spacing: 50px;
-        padding-left: 50px;
-      `;
-    }
-  }}
+const titleResultFlyAnimate = keyframes`
+  from {
+    width: auto;
+    white-space: nowrap;
+    top: 35px;
+    font-size: 240px;
+    line-height: 345px;
+    font-family: 'Noto Serif TC', serif;
+  }
+  to {
+    width: 16px;
+    top: 144px;
+    font-size: 16px;
+    line-height: 16px;
+    font-family: 'Noto Sans TC', sans-serif;
+  }
 `;
 
 const TitleResult = styled.div`
-  color: white;
   font-weight: normal;
   transition: all 1s;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-
-  ${props => {
-    if (props.stage === STAGE.DETAIL) {
-      return _css`
-        width: 16px;
-        // order: 3;
-        top: 144px;
-        font-size: 16px;
-        line-height: 16px;
-        font-family: 'Noto Sans TC', sans-serif;
-      `;
-    } else {
-      return _css`
-        width: auto;
-        white-space: nowrap;
-        // order: 2;
-        top: 35px;
-        font-size: 240px;
-        line-height: 345px;
-        font-family: 'Noto Serif TC', serif;
-      `;
-    }
-  }}
+  animation: ${titleResultFlyAnimate} 1.5s ease 4s 1 normal both;
 `;
 
-const ResultPage = ({ show }) => {
-  const [stage, setStage] = useState(STAGE.CENTER);
+const mainBlockShowAnimate = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
 
+const MainBlock = styled.div`
+  width: 100%;
+  height: 100%;
+  /* background: gray; */
+  position: relative;
+  padding-top: 57px;
+  display: flex;
+  justify-content: space-between;
+
+  animation: ${mainBlockShowAnimate} 2s ease 5s 1 normal both;
+`;
+
+const MainBlockLeft = styled.div`
+  /* background: black; */
+  align-self: flex-end;
+`;
+
+const MainBlockRight = styled.div`
+  /* background: black; */
+  align-self: flex-start;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-start;
+`;
+
+const Poetry = styled.p`
+  font-size: 40px;
+  color: white;
+  width: 40px;
+  line-height: 40px;
+  margin-left: 40px;
+`;
+
+const MainBlockTitle = styled.h2`
+  font-size: 24px;
+  line-height: 35px;
+  margin-bottom: 24px;
+  color: white;
+`;
+
+const MainBlockPg = styled.p`
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 24px;
+  color: white;
+  font-family: 'Noto Sans TC', sans-serif;
+  margin-bottom: 40px;
+`;
+
+const ReplayButton = styled.div`
+  width: 350px;
+  height: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 1px white;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  transition: color 300ms, background 300ms;
+
+  &:hover {
+    color: #000;
+    background: white;
+  }
+`;
+
+const ResultPage = ({ show, toNextPage }) => {
   return (
-    <Wrapper show={show}>
-      <TitleBlock stage={stage}>
-        <TitleNumber stage={stage}>第四十八籤</TitleNumber>
-        <TitleDate stage={stage}>
-          {stage === STAGE.DETAIL ? '︻ 戊 辛 ︼ ' : '【戊辛】'}
-        </TitleDate>
-        <TitleResult stage={stage}>中吉</TitleResult>
-      </TitleBlock>
-      <button
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          left: '50%',
-          transform: 'translateX(-50%)'
-          // display: 'none'
-        }}
-        onClick={() => {
-          setStage(stage === STAGE.CENTER ? STAGE.DETAIL : STAGE.CENTER);
-        }}
-      >
-        Test Button
-      </button>
-    </Wrapper>
+    <CSSTransition
+      in={show}
+      timeout={500}
+      classNames={cssTransName}
+      mountOnEnter={true}
+      unmountOnExit={true}
+    >
+      <Wrapper show={show}>
+        <TitleBlock>
+          <TitleNumber>第四十八籤</TitleNumber>
+          <TitleDate />
+          <TitleResult>中吉</TitleResult>
+        </TitleBlock>
+        <MainBlock>
+          <MainBlockLeft>
+            <MainBlockTitle>聖意</MainBlockTitle>
+            <MainBlockPg style={{ maxWidth: 240 }}>
+              遇貴者　訟和平　病驚險　莫求名 財物耗　婚宜停　逢寅字　事漸亨
+            </MainBlockPg>
+            <MainBlockTitle>解曰</MainBlockTitle>
+            <MainBlockPg style={{ maxWidth: 352 }}>
+              此籤家道不安　須防人口舌　怨恨臨門　財有失　
+              逢貴人提挈方保　漸亨不成　多口舌　
+              問婚訟平　病有驚　財物耗散　名利空虛　
+              只宜守舊　不利遠行　防親人侵損也　
+            </MainBlockPg>
+            <ReplayButton onClick={toNextPage}>重新求籤</ReplayButton>
+          </MainBlockLeft>
+          <MainBlockRight>
+            <Poetry>登 山 涉 水 正 天 寒</Poetry>
+            <Poetry>兄 弟 姻 親 那 得 安</Poetry>
+            <Poetry>不 遇 虎 頭 人 一 喚</Poetry>
+            <Poetry>全 家 誰 保 汝 重 歡</Poetry>
+          </MainBlockRight>
+        </MainBlock>
+      </Wrapper>
+    </CSSTransition>
   );
 };
 

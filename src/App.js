@@ -17,8 +17,8 @@ const PAGE = {
 };
 
 function App() {
-  // const [page, setPage] = useState(PAGE.LANDING);
-  const [page, setPage] = useState(PAGE.RESULT);
+  const [page, setPage] = useState(PAGE.LANDING);
+  // const [page, setPage] = useState(PAGE.RESULT);
 
   return (
     <>
@@ -27,7 +27,10 @@ function App() {
         show={page === PAGE.LANDING}
         toNextPage={() => setPage(PAGE.RESULT)}
       />
-      <ResultPage show={page === PAGE.RESULT} />
+      <ResultPage
+        show={page === PAGE.RESULT}
+        toNextPage={() => setPage(PAGE.LANDING)}
+      />
     </>
   );
 }
