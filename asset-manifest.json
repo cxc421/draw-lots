@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/draw-lots/static/css/main.adf8629d.chunk.css",
-    "main.js": "/draw-lots/static/js/main.ab323bf6.chunk.js",
-    "main.js.map": "/draw-lots/static/js/main.ab323bf6.chunk.js.map",
+    "main.js": "/draw-lots/static/js/main.82406d16.chunk.js",
+    "main.js.map": "/draw-lots/static/js/main.82406d16.chunk.js.map",
     "runtime~main.js": "/draw-lots/static/js/runtime~main.a7b18b6d.js",
     "runtime~main.js.map": "/draw-lots/static/js/runtime~main.a7b18b6d.js.map",
     "static/js/2.9edf1ad3.chunk.js": "/draw-lots/static/js/2.9edf1ad3.chunk.js",
     "static/js/2.9edf1ad3.chunk.js.map": "/draw-lots/static/js/2.9edf1ad3.chunk.js.map",
     "index.html": "/draw-lots/index.html",
-    "precache-manifest.a0c4b7e188c1976cfd876fb4062d07df.js": "/draw-lots/precache-manifest.a0c4b7e188c1976cfd876fb4062d07df.js",
+    "precache-manifest.c75192fe2972dabc3b3f12d2c0faad41.js": "/draw-lots/precache-manifest.c75192fe2972dabc3b3f12d2c0faad41.js",
     "service-worker.js": "/draw-lots/service-worker.js",
     "static/css/main.adf8629d.chunk.css.map": "/draw-lots/static/css/main.adf8629d.chunk.css.map",
     "static/media/bell.mp3": "/draw-lots/static/media/bell.e7f84adc.mp3",
