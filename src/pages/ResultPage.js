@@ -288,7 +288,9 @@ function useLucky(show) {
   const luckMap = ['大凶', '中兇', '小兇', '小吉', '中吉', '大吉'];
 
   useEffect(() => {
-    setLucky(makeLucky());
+    if (show) {
+      setLucky(makeLucky());
+    }
   }, [show]);
 
   return {
