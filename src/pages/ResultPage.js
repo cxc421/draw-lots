@@ -57,7 +57,7 @@ const showUpAnimate = keyframes`
 //   }
 // `;
 
-const colorYellowAnimate = props => keyframes`
+const colorAnimate = props => keyframes`
   0% {
     color: white;
   }
@@ -95,7 +95,7 @@ const TitleBlock = styled.div`
   /* display: none; */
 
   animation: ${showUpAnimate} 2s ease 2s 1 normal both,
-    ${colorYellowAnimate} 2.5s linear 1.5s 1 normal both,
+    ${colorAnimate} 2.5s linear 1.5s 1 normal both,
     ${titleBlockFlyAnimate} 1.5s ease 4s 1 normal both;
 `;
 
