@@ -5,6 +5,7 @@ import { CSSTransition } from 'react-transition-group';
 import bellSoundSrc from '../assets/bell.mp3';
 
 const cssTransName = 'css-trans';
+const resultFlyTime = '1.5s';
 
 const Wrapper = styled.div`
   position: absolute;
@@ -41,21 +42,6 @@ const showUpAnimate = keyframes`
      opacity: 1;
    }
 `;
-
-// const colorYellowAnimate = keyframes`
-//   0% {
-//     color: white;
-//   }
-//   40% {
-//     color: yellow;
-//   }
-//   70% {
-//     color: yellow;
-//   }
-//   100% {
-//     color: white;
-//   }
-// `;
 
 const colorAnimate = props => keyframes`
   0% {
@@ -96,7 +82,7 @@ const TitleBlock = styled.div`
 
   animation: ${showUpAnimate} 2s ease 2s 1 normal both,
     ${colorAnimate} 2.5s linear 1.5s 1 normal both,
-    ${titleBlockFlyAnimate} 1.5s ease 4s 1 normal both;
+    ${titleBlockFlyAnimate} ${resultFlyTime} ease 4s 1 normal both;
 `;
 
 const titleNumberFlyAnimate = keyframes`
@@ -121,7 +107,7 @@ const TitleNumber = styled.div`
   font-family: 'Noto Sans TC', sans-serif;
   transition: all 1s;
   order: 1;
-  animation: ${titleNumberFlyAnimate} 1.5s ease 4s 1 normal both;
+  animation: ${titleNumberFlyAnimate} ${resultFlyTime} ease 4s 1 normal both;
 `;
 
 const titleDateFlyAnimate = keyframes`
@@ -158,22 +144,23 @@ const TitleDate = styled.div`
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  animation: ${titleDateFlyAnimate} 1.5s ease 4s 1 normal both;
+  animation: ${titleDateFlyAnimate} ${resultFlyTime} ease 4s 1 normal both;
   &::before {
     content: '【戊辛】';
     display: block;
-    animation: ${titleDateTextAnimate} 1.5s ease 4s 1 normal both;
+    animation: ${titleDateTextAnimate} ${resultFlyTime} ease 4s 1 normal both;
   }
 `;
 
 const titleResultFlyAnimate = keyframes`
   from {
-    width: auto;
+    width: 482px;
     white-space: nowrap;
     top: 35px;
     font-size: 240px;
     line-height: 345px;
     font-family: 'Noto Serif TC', serif;
+    text-align: center;
   }
   to {
     width: 16px;
@@ -190,7 +177,7 @@ const TitleResult = styled.div`
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  animation: ${titleResultFlyAnimate} 1.5s ease 4s 1 normal both;
+  animation: ${titleResultFlyAnimate} ${resultFlyTime} ease 4s 1 normal both;
 `;
 
 const mainBlockShowAnimate = keyframes`
