@@ -6,6 +6,7 @@ import bellSoundSrc from '../assets/bell.mp3';
 
 const cssTransName = 'css-trans';
 const resultFlyTime = '1.5s';
+const wrapperPadding = 116;
 
 const Wrapper = styled.div`
   position: absolute;
@@ -13,10 +14,11 @@ const Wrapper = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   height: calc(100% - 258px);
-  width: 920px;
+  width: ${920 + wrapperPadding * 2}px;
   max-width: 100%;
-  /* background: pink; */
-  padding-right: 40px;
+  min-width: 942px;
+  padding-right: ${40 + wrapperPadding}px;
+  padding-left: ${wrapperPadding}px;
 
   transition: opacity 500ms;
 
@@ -67,7 +69,7 @@ const titleBlockFlyAnimate = keyframes`
   }
   to {
     top: 57px;
-    right: 0;
+    right: ${wrapperPadding}px;
     transform: translate(0, 0);
   }
 `;
