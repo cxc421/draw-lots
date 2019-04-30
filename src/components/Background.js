@@ -11,6 +11,7 @@ const BgVideo = styled.video`
   height: 100%;
   opacity: 0.5;
   transition: opacity 2s;
+  opacity: 0.25;
   display: ${document.body.style.hasOwnProperty('mixBlendMode')
     ? 'block'
     : 'none'};
@@ -161,20 +162,43 @@ const useLazyImgSrc = ({ bigSrc, smallSrc }) => {
   return src;
 };
 
+/** Video isplaying */
+Object.defineProperty(HTMLMediaElement.prototype, 'playing', {
+  get: function() {
+    return !!(
+      this.currentTime > 0 &&
+      !this.paused &&
+      !this.ended &&
+      this.readyState > 2
+    );
+  }
+});
+
 function Background({ isLandingBg }) {
   const videoRef = useRef();
   const imgSrc = useLazyImgSrc({ bigSrc: bgSrc, smallSrc: bgSrc_small });
   const wrapperStyle = {
     height: isLandingBg ? 'calc(100% - 128px)' : '100%'
   };
-  const videoStyle = { opacity: 0.25 };
+
+  useEffect(() => {
+    let key = null;
+    if (videoRef.current.playing) {
+      videoRef.current.pause();
+      key = setTimeout(() => {
+        videoRef.current.play();
+      }, 1200);
+    }
+    return () => {
+      clearTimeout(key);
+    };
+  }, [isLandingBg]);
 
   return (
     <BgWrapper style={wrapperStyle}>
       <BgVideo
         ref={videoRef}
         src={smokeVideoSrc}
-        style={videoStyle}
         loop={true}
         muted={true}
         autoPlay={true}
