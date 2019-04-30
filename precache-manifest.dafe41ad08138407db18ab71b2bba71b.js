@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a6543ddc83629bdb73832f22671ba7b6",
+    "revision": "252655b23e28a5be3fe720ba2dba21ec",
     "url": "/draw-lots/index.html"
   },
   {
-    "revision": "e20e1e9b86f09ff98814",
+    "revision": "2116775228b9768c9296",
     "url": "/draw-lots/static/css/main.adf8629d.chunk.css"
   },
   {
-    "revision": "4e27d9f03d70a9ab2210",
-    "url": "/draw-lots/static/js/2.9edf1ad3.chunk.js"
+    "revision": "6e2a3fa30074fa16b3e1",
+    "url": "/draw-lots/static/js/2.1f25eb1f.chunk.js"
   },
   {
-    "revision": "e20e1e9b86f09ff98814",
-    "url": "/draw-lots/static/js/main.5df3e45f.chunk.js"
+    "revision": "2116775228b9768c9296",
+    "url": "/draw-lots/static/js/main.54c7249d.chunk.js"
   },
   {
     "revision": "00866f6892ac63a590a8",
@@ -30,5 +30,9 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "da8299d34d9e922d54e9f01a2631ba75",
     "url": "/draw-lots/static/media/bg_small.da8299d3.jpg"
+  },
+  {
+    "revision": "9c21ff18417c96513c292e74cd7add3c",
+    "url": "/draw-lots/static/media/smoke.9c21ff18.mp4"
   }
 ]);
