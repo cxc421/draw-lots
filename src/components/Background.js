@@ -162,7 +162,7 @@ const useLazyImgSrc = ({ bigSrc, smallSrc }) => {
 };
 
 function Background({ isLandingBg }) {
-  const videoRef = useRef(null);
+  const videoRef = useRef();
   const imgSrc = useLazyImgSrc({ bigSrc: bgSrc, smallSrc: bgSrc_small });
   const wrapperStyle = {
     height: isLandingBg ? 'calc(100% - 128px)' : '100%'
@@ -175,8 +175,9 @@ function Background({ isLandingBg }) {
         ref={videoRef}
         src={smokeVideoSrc}
         style={videoStyle}
-        autoPlay={true}
         loop={true}
+        muted={true}
+        autoPlay={true}
       />
       <BgImg bgSrc={imgSrc} />
       <BgLandingShade show={isLandingBg} />
