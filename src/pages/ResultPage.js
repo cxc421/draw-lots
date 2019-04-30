@@ -349,4 +349,19 @@ const ResultPage = ({ show, toNextPage }) => {
   );
 };
 
+// const ResultPageTest = () => (
+//   <div
+//     style={{
+//       position: 'absolute',
+//       top: '50%',
+//       left: '50%',
+//       transform: 'translate(-50%,-50%)',
+//       color: 'white',
+//       fontSize: 240
+//     }}
+//   >
+//     TEST
+//   </div>
+// );
+
 export default ResultPage;

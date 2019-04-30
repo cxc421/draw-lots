@@ -1,7 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled, { css as _css } from 'styled-components';
 import bgSrc from '../assets/bg.jpg';
 import bgSrc_small from '../assets/bg_small.jpg';
+import smokeVideoSrc from '../assets/smoke.mp4';
+
+const BgVideo = styled.video`
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  opacity: 0.5;
+  transition: opacity 2s;
+  display: ${document.body.style.hasOwnProperty('mixBlendMode')
+    ? 'block'
+    : 'none'};
+`;
 
 const BgImg = styled.div`
   width: 100%;
@@ -11,6 +24,7 @@ const BgImg = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
+  mix-blend-mode: hue;
 `;
 
 const BgLandingShade = styled.div`
@@ -148,13 +162,22 @@ const useLazyImgSrc = ({ bigSrc, smallSrc }) => {
 };
 
 function Background({ isLandingBg }) {
+  const videoRef = useRef(null);
   const imgSrc = useLazyImgSrc({ bigSrc: bgSrc, smallSrc: bgSrc_small });
   const wrapperStyle = {
     height: isLandingBg ? 'calc(100% - 128px)' : '100%'
   };
+  const videoStyle = { opacity: 0.25 };
 
   return (
     <BgWrapper style={wrapperStyle}>
+      <BgVideo
+        ref={videoRef}
+        src={smokeVideoSrc}
+        style={videoStyle}
+        autoPlay={true}
+        loop={true}
+      />
       <BgImg bgSrc={imgSrc} />
       <BgLandingShade show={isLandingBg} />
       <BgResultWrapper show={!isLandingBg}>
